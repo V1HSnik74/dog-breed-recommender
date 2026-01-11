@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return HttpResponse('<h1>Шадрин гандон</h1>')
+    return render(request, 'main/surveyform.html')
