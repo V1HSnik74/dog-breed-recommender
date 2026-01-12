@@ -6,30 +6,33 @@
 </head>
 <body>
     <h1>Форма для заполнения</h1>
-    <p>Предпочитаемый размер собаки:
-    <select name="preferred_weight">
-        <option value="1">Очень маленькая</option>
-        <option value="2">Маленькая</option>
-        <option value="3" selected>Средняя</option>
-        <option value="4">Крупная</option>
-        <option value="5">Очень крупная</option>
+    <form method="post" action="/get_survey_result/">
+        {% csrf_token %}
+        <p>Предпочитаемый размер собаки:
+    <select name="preferred_weight" required>
+        <option value="1">Очень маленькая (до 5 кг)</option>
+        <option value="2">Маленькая (5-10 кг)</option>
+        <option value="3" selected>Средняя (10-20 кг)</option>
+        <option value="4">Крупная (20-45 кг)</option>
+        <option value="5">Очень крупная (45-120 кг)</option>
     </select></p>
-    <p>Ваша активность:
-    <select name="activity_level">
+        <p>Ваша активность:
+    <select name="activity_level" required>
         <option value="1">Очень низкая</option>
         <option value="2">Низкая</option>
         <option value="3" selected>Средняя</option>
         <option value="4">Высокая</option>
         <option value="5">Очень высокая</option>
     </select></p>
-    <p>Наличие детей <input type="checkbox" name="has_children"></p>
+        <p>Наличие детей <input type="checkbox" name="has_children"></p>
     <p>Наличие аллергии на собак <input type="checkbox" name="has_allergy"></p>
     <p>Наличие других собак <input type="checkbox" name="has_other_dogs"></p>
     <p>Наличие времени на грумминг<input type="checkbox" name="has_time_for_grooming"></p>
     <p>Тип жилья: <select name="home_type">
-        <option>квартира</option>
-        <option>дом</option>
+        <option value="apartment">квартира</option>
+        <option value="house">дом</option>
     </select></p>
-    <p><button disabled>Отправить</button></p>
+    <p><button>Отправить</button></p>
+    </form>
 </body>
 </html>

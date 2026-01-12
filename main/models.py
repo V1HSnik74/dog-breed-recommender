@@ -68,20 +68,21 @@ class Survey(models.Model):
     has_children = models.BooleanField(verbose_name='Есть дети')
     home_type = models.CharField(verbose_name='Тип жилья', max_length=9, choices=HOME)
     activity_level = models.IntegerField(choices=[
-        (1, 'Не энергичная'),
-        (2, 'Немного энергичная'),
-        (3, 'Умеренно энергичная'),
-        (4, 'Сильно энергичная'),
-        (5, 'Очень сильно энергичная')
+        (1, 'Очень низкая'),
+        (2, 'Низкая'),
+        (3, 'Средняя'),
+        (4, 'Высокая'),
+        (5, 'Очень высокая'),
     ],
-    verbose_name='Ваш уровень активности'),
+    default=3)
     preferred_weight = models.IntegerField(choices=[
         (1, 'Очень маленькая (до 5 кг)'),
         (2, 'Маленькая (5-10 кг)'),
         (3, 'Средняя (10-20 кг)'),
         (4, 'Крупная (20-45 кг)'),
         (5, 'Очень крупная (45-120 кг)')
-    ])
+    ],
+    default=3)
     has_allergy = models.BooleanField(verbose_name='Наличие аллергии на собак')
     has_other_dogs = models.BooleanField(verbose_name='Наличие других собак')
     has_time_for_grooming = models.BooleanField(verbose_name='Есть время на грумминг')
