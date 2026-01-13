@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
-from .models import Survey
+from .models import Survey, DogBreed
 
 def index(request):
     return render(request, 'main/surveyform.html')
@@ -32,3 +32,102 @@ def get_survey_result(request):
         print(f'Error: {e}')
 
     return redirect('index')
+
+def calculate_dog_suitability(dog, survey):
+    if survey.home_type == 'apartment' and dog.avg_weight >= 40:
+        return 0
+    weight_score = check_dog_weight_suitability(dog, survey)
+    kids_score = check_dog_with_kids_suitability(dog, survey)
+    dogs_suitability = check_dog_with_dogs_suitability(dog, survey)
+    allergy_suitability = check_dog_allergy_suitability(dog, survey)
+    activity_suitability = check_dog_activity_level(dog, survey)
+    grooming_suitability = check_dog_grooming_suitability(dog, survey)
+    dog_trainability = check_dog_trainability(dog)
+    total_score = weight_score + kids_score + dogs_suitability + activity_suitability + grooming_suitability + dog_trainability + allergy_suitability
+    return total_score
+
+def check_dog_weight_suitability(dog, survey):
+    weight_ranges ={
+        1: (0, 5),
+        2: (5, 10),
+        3: (10, 20),
+        4: (20, 45),
+        5: (45, 120)
+    }
+    dog_w_min, dog_w_max = weight_ranges[survey.preferred_weight]
+    if dog_w_min > dog.avg_weight or dog_w_max < dog.avg_weight:
+        return 0
+    return 20
+
+
+def check_dog_with_kids_suitability(dog, survey):
+    values = {
+        5: 20,
+        4: 15,
+        3: 10
+    }
+    if not survey.has_children:
+        return 20
+    if dog.good_with_children < 3:
+        return 0
+    return values[dog.good_with_children]
+
+
+def check_dog_with_dogs_suitability(dog, survey):
+    values = {
+        5: 20,
+        4: 15,
+        3: 10
+    }
+    if not survey.has_other_dogs:
+        return 20
+    if dog.good_with_other_dogs < 3:
+        return 0
+    return values[dog.good_with_other_dogs]
+
+
+def check_dog_activity_level(dog, survey):
+    difference = {
+        0: 10,
+        1: 8,
+        2: 6,
+        3: 4,
+        4: 2
+    }
+    return difference[abs(dog.energy - survey.activity_level)]
+
+
+def check_dog_allergy_suitability(dog, survey):
+    values = {
+        1: 20,
+        2: 15
+    }
+    if not survey.has_allergy:
+        return 20
+    if dog.shedding > 2:
+        return 0
+    return values[dog.shedding]
+
+
+def check_dog_grooming_suitability(dog, survey):
+    values = {
+        1: 5,
+        2: 4,
+        3: 3,
+        4: 2,
+        5: 1
+    }
+    if dog.grooming >= 4 and not survey.has_time_for_grooming:
+        return 0
+    return values[dog.grooming]
+
+
+def check_dog_trainability(dog):
+    values = {
+        1: 5,
+        2: 4,
+        3: 3,
+        4: 2,
+        5: 1
+    }
+    return values[dog.trainability]

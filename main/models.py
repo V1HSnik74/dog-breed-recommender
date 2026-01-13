@@ -89,3 +89,12 @@ class Survey(models.Model):
 
     def __str__(self):
         return f'Анкета №{self.id}'
+
+
+class Recommendation(models.Model):
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    top_5_dog_json = models.JSONField(default=dict)
+    score = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'Анкета №{self.survey.id}: {self.score} баллов'
