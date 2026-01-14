@@ -32,7 +32,6 @@ class Command(BaseCommand):
                     max_weight=dog['max_weight_male'],
                     shedding=dog['shedding'],
                     grooming=dog['grooming'],
-                    coat_length=dog['coat_length'],
                     energy=dog['energy'],
                     trainability=dog['trainability'],
                     good_with_children=dog['good_with_children'],
