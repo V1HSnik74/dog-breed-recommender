@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
-from .models import Survey, DogBreed
+from .models import Survey, DogBreed, Recommendation
 
 def index(request):
     return render(request, 'main/surveyform.html')
@@ -10,16 +10,15 @@ def get_survey_result(request):
     if request.method != 'POST':
         return render(request, 'main/surveyform.html')
 
-    preferred_weight = request.POST.get('preferred_weight')
-    activity_level = request.POST.get('activity_level')
+    preferred_weight = int(request.POST.get('preferred_weight'))
+    activity_level = int(request.POST.get('activity_level'))
     has_children = request.POST.get('has_children') == 'on'
     has_allergy = request.POST.get('has_allergy') == 'on'
     has_other_dogs = request.POST.get('has_other_dogs') == 'on'
     has_time_for_grooming = request.POST.get('has_time_for_grooming') == 'on'
     home_type = request.POST.get('home_type')
 
-    try:
-        Survey.objects.create(
+    survey = Survey.objects.create(
             has_children=has_children,
             home_type=home_type,
             activity_level=activity_level,
@@ -28,10 +27,31 @@ def get_survey_result(request):
             has_other_dogs=has_other_dogs,
             has_time_for_grooming=has_time_for_grooming
         )
-    except Exception as e:
-        print(f'Error: {e}')
+    recommendations_for_survey = get_recommendations(survey)
+    recommendations = Recommendation.objects.create(
+        survey=survey,
+        top_5_dog_json=recommendations_for_survey
+    )
+    return render(request, 'main/recommendations.html', {'rec': recommendations})
 
-    return redirect('index')
+
+def get_recommendations(survey):
+    recommendations = []
+    dogs = DogBreed.objects.all()
+    for dog in dogs:
+        score = calculate_dog_suitability(dog, survey)
+        recommendations.append({'id': dog.id,
+                                'score': score,
+                                'name': dog.name,
+                                'avg_weight': dog.avg_weight,
+                                'trainability': dog.trainability,
+                                'energy': dog.energy,
+                                'good_with_children': dog.good_with_children,
+                                'good_with_other_dogs': dog.good_with_other_dogs,
+                                'grooming': dog.grooming
+                                })
+    return sorted(recommendations, key=lambda x: x['score'], reverse=True)[:5]
+
 
 def calculate_dog_suitability(dog, survey):
     if survey.home_type == 'apartment' and dog.avg_weight >= 40:
@@ -92,7 +112,8 @@ def check_dog_activity_level(dog, survey):
         1: 8,
         2: 6,
         3: 4,
-        4: 2
+        4: 2,
+        5: 0
     }
     return difference[abs(dog.energy - survey.activity_level)]
 
@@ -100,7 +121,8 @@ def check_dog_activity_level(dog, survey):
 def check_dog_allergy_suitability(dog, survey):
     values = {
         1: 20,
-        2: 15
+        2: 15,
+        0: 0
     }
     if not survey.has_allergy:
         return 20
@@ -115,7 +137,8 @@ def check_dog_grooming_suitability(dog, survey):
         2: 4,
         3: 3,
         4: 2,
-        5: 1
+        5: 1,
+        0: 0
     }
     if dog.grooming >= 4 and not survey.has_time_for_grooming:
         return 0
@@ -128,6 +151,7 @@ def check_dog_trainability(dog):
         2: 4,
         3: 3,
         4: 2,
-        5: 1
+        5: 1,
+        0: 0
     }
     return values[dog.trainability]

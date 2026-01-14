@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты</title>
+</head>
+<body>
+    <h1>Рекомендации (ТОП-{{ rec.top_5_dog_json|length }})</h1>
+
+    {% if rec.top_5_dog_json %}
+        {% for dog in rec.top_5_dog_json %}
+        <div>
+            <h3>{{ dog.name }}</h3>
+            <p>Балл: {{ dog.score }}/100</p>
+            <p>Средний вес: {{ dog.avg_weight }}</p>
+            <p>Обучаемость: {{ dog.trainability }}/5</p>
+            <p>Активность: {{ dog.energy }}/5</p>
+            <p>Ладит с детьми: {{ dog.good_with_children }}/5</p>
+            <p>Ладит с другими собаками: {{ dog.good_with_other_dogs }}/5</p>
+            <p>Сложность ухода: {{ dog.grooming }}/5</p>
+            <p>{{ dog.score|floatformat:0 }}% подходит!</p>
+            <hr>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Подходящих пород не найдено</p>
+    {% endif %}
+
+    <a href="{% url 'index' %}">Новая анкета</a>
+</body>
+</html>

@@ -19,13 +19,6 @@ class DogBreed(models.Model):
         (4, 'Требует тщательного ухода'),
         (5, 'Требует очень тщательного ухода')
     ])
-    coat_length = models.IntegerField(choices=[
-        (1, 'Нет шерсти'),
-        (2, 'Короткошерстный'),
-        (3, 'Шерсть средней длины'),
-        (4, 'Длинношерстный'),
-        (5, 'Очень длинношерстный')
-    ])
     energy = models.IntegerField(choices=[
         (1, 'Не энергичная'),
         (2, 'Немного энергичная'),
@@ -94,7 +87,6 @@ class Survey(models.Model):
 class Recommendation(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
     top_5_dog_json = models.JSONField(default=dict)
-    score = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'Анкета №{self.survey.id}: {self.score} баллов'
+        return f'Анкета №{self.survey.id}'
