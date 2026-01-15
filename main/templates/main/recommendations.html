@@ -10,6 +10,7 @@
         {% for dog in rec.top_5_dog_json %}
         <div>
             <h3>{{ dog.name }}</h3>
+            <img src="{{ dog.photo }}" alt="Извините, изображение отсутствует!" >
             <p>Балл: {{ dog.score }}/100</p>
             <p>Средний вес: {{ dog.avg_weight }}</p>
             <p>Обучаемость: {{ dog.trainability }}/5</p>

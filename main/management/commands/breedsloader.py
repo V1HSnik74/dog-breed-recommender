@@ -35,6 +35,7 @@ class Command(BaseCommand):
                     energy=dog['energy'],
                     trainability=dog['trainability'],
                     good_with_children=dog['good_with_children'],
-                    good_with_other_dogs=dog['good_with_other_dogs']
+                    good_with_other_dogs=dog['good_with_other_dogs'],
+                    dog_photo=dog['image_link']
                 )
             offset += 20

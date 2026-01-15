@@ -47,6 +47,7 @@ class DogBreed(models.Model):
         (4, 'Хорошо ладит с другими собаками'),
         (5, 'Очень хорошо ладит с другими собаками')
     ])
+    dog_photo = models.URLField(max_length=500, blank=True)
 
     def __str__(self):
         return self.name

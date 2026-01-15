@@ -48,7 +48,8 @@ def get_recommendations(survey):
                                 'energy': dog.energy,
                                 'good_with_children': dog.good_with_children,
                                 'good_with_other_dogs': dog.good_with_other_dogs,
-                                'grooming': dog.grooming
+                                'grooming': dog.grooming,
+                                'photo': dog.dog_photo
                                 })
     return sorted(recommendations, key=lambda x: x['score'], reverse=True)[:5]
 
