@@ -1,3 +1,4 @@
+{% load no_info_tag %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +15,11 @@
             <img src="{{ dog.photo }}" alt="Извините, изображение отсутствует!" >
             <p>Балл: {{ dog.score }}/100</p>
             <p>Средний вес: {{ dog.avg_weight }}</p>
-            <p>Обучаемость: {{ dog.trainability }}/5</p>
-            <p>Активность: {{ dog.energy }}/5</p>
-            <p>Ладит с детьми: {{ dog.good_with_children }}/5</p>
-            <p>Ладит с другими собаками: {{ dog.good_with_other_dogs }}/5</p>
-            <p>Сложность ухода: {{ dog.grooming }}/5</p>
+            <p>Обучаемость: {{ dog.trainability|no_info }}</p>
+            <p>Активность: {{ dog.energy|no_info }}</p>
+            <p>Ладит с детьми: {{ dog.good_with_children|no_info }}</p>
+            <p>Ладит с другими собаками: {{ dog.good_with_other_dogs|no_info }}</p>
+            <p>Сложность ухода: {{ dog.grooming|no_info }}</p>
             <p>{{ dog.score|floatformat:0 }}% подходит!</p>
             <hr>
         </div>

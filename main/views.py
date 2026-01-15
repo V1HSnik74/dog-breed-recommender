@@ -76,11 +76,22 @@ def check_dog_weight_suitability(dog, survey):
         4: (20, 45),
         5: (45, 120)
     }
+    values ={
+        0: 18,
+        1: 14,
+        2: 10,
+        3: 6,
+        4: 2,
+        5: 0
+    }
     dog_w_min, dog_w_max = weight_ranges[survey.preferred_weight]
-    if dog_w_min > dog.avg_weight or dog_w_max < dog.avg_weight:
-        return 0
-    return 20
-
+    if dog_w_min <= dog.avg_weight <= dog_w_max:
+        return 20
+    if dog.avg_weight <  dog_w_min:
+        dist = dog_w_min - dog.avg_weight
+    else:
+        dist = dog.avg_weight - dog_w_max
+    return values[min(dist//5, 5)]
 
 def check_dog_with_kids_suitability(dog, survey):
     values = {
