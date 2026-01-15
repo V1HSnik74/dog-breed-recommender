@@ -1,6 +1,7 @@
 from django.core.management import BaseCommand
 import requests
 from main.models import DogBreed
+from deep_translator import GoogleTranslator
 
 
 class Command(BaseCommand):
@@ -26,8 +27,10 @@ class Command(BaseCommand):
             if not dogs:
                 break
             for dog in dogs:
+                name_rus = GoogleTranslator(source='en', target='ru').translate(dog['name'])
                 DogBreed.objects.update_or_create(
                     name=dog['name'],
+                    name_rus=name_rus,
                     min_weight=dog['min_weight_male'],
                     max_weight=dog['max_weight_male'],
                     shedding=dog['shedding'],

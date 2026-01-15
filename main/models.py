@@ -3,6 +3,7 @@ from django.db import models
 
 class DogBreed(models.Model):
     name = models.CharField(max_length=50)
+    name_rus = models.CharField(max_length=50)
     min_weight = models.IntegerField()
     max_weight = models.IntegerField()
     shedding = models.IntegerField(choices=[
@@ -87,7 +88,7 @@ class Survey(models.Model):
 
 class Recommendation(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
-    top_5_dog_json = models.JSONField(default=dict)
+    breeds_json = models.JSONField(default=dict)
 
     def __str__(self):
         return f'Анкета №{self.survey.id}'

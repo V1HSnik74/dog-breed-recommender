@@ -30,7 +30,7 @@ def get_survey_result(request):
     recommendations_for_survey = get_recommendations(survey)
     recommendations = Recommendation.objects.create(
         survey=survey,
-        top_5_dog_json=recommendations_for_survey
+        breeds_json=recommendations_for_survey
     )
     return render(request, 'main/recommendations.html', {'rec': recommendations})
 
@@ -42,6 +42,7 @@ def get_recommendations(survey):
         score = calculate_dog_suitability(dog, survey)
         recommendations.append({'id': dog.id,
                                 'score': score,
+                                'name_rus': dog.name_rus,
                                 'name': dog.name,
                                 'avg_weight': dog.avg_weight,
                                 'trainability': dog.trainability,
@@ -51,7 +52,7 @@ def get_recommendations(survey):
                                 'grooming': dog.grooming,
                                 'photo': dog.dog_photo
                                 })
-    return sorted(recommendations, key=lambda x: x['score'], reverse=True)[:5]
+    return sorted(recommendations, key=lambda x: x['score'], reverse=True)[:20]
 
 
 def calculate_dog_suitability(dog, survey):
