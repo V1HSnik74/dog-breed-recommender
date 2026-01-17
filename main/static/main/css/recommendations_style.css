@@ -1,0 +1,181 @@
+body{
+    background: linear-gradient(135deg, #F5EFAD 0%, #FFE6D5 100%);
+}
+
+h1{
+    text-align: center;
+    color: #553A2E;
+    font-family: "Rubik Doodle Shadow", system-ui;
+    margin-bottom: 170px;
+    margin-top: 20px;
+    font-size: 64px;
+}
+
+.cards_container{
+    position: relative;
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.cards{
+    position: relative;
+    width: 100%;
+    max-width: 780px;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card{
+    position: absolute;
+    width: 100%;
+    max-width: 780px;
+    border-radius: 30px;
+    overflow: hidden;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.card.active{
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.dog_image_wrapper {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dog_image_wrapper img {
+    width: 500px;
+    height: 350px;
+    margin-top: 15px;
+    border: 5px dashed #553A2E;
+    border-radius: 30px;
+}
+
+.dog_info {
+    padding-top: 8px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+    text-align: center;
+}
+
+.dog_name_rus {
+    font-size: 48px;
+    color: #553A2E;
+    font-weight: 700;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: -1px;
+    line-height: 0.9;
+}
+
+.dog_name {
+    font-size: 36px;
+    color: #000000;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+}
+
+.attributes_box {
+    background: #F5E6D3;
+    border: 3px solid #553A2E;
+    border-radius: 30px;
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.attributes_box p{
+    font-size: 24px;
+    color: #433027;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+}
+
+.attribute_value{
+    font-weight: bold;
+    background: #7D5A421A;
+    padding: 5px 15px;
+    margin-left: 5px;
+    border-radius: 15px;
+}
+
+.final_score{
+    font-size: 22px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    color: white;
+    background: #553A2E;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.back_link_wrapper{
+    text-align: center;
+    margin-top: 160px;
+    margin-bottom: 10px;
+}
+
+.back_link_wrapper a{
+    display: inline-block;
+    background: #553A2E;
+    color: white;
+    padding: 18px 40px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.back_link_wrapper a:hover{
+    background: #7D5A42;
+    box-shadow: 0 12px 35px rgba(139, 111, 71, 0.4);
+}
+
+.nav_arrows{
+    background: #553A2E;
+    color: white;
+    font-size: 64px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding-bottom: 15px;
+}
+
+.nav_arrows:hover{
+    background: #7D5A42;
+    transform: scale(1.1);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.nav_arrows:active{
+    transform: scale(0.95);
+}
+
+.no_results p{
+    font-family: "Open Sans", sans-serif;
+    font-size: 48px;
+    weight: 700;
+}
