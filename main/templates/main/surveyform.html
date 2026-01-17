@@ -1,11 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Подбор породы собаки</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main/css/survey.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Форма для заполнения</h1>
+    <h1>Подберите себе собаку!</h1>
     <form method="post" action="/get_survey_result/">
         {% csrf_token %}
         <p>Предпочитаемый размер собаки:
@@ -27,12 +36,14 @@
         <p>Наличие детей <input type="checkbox" name="has_children"></p>
     <p>Наличие аллергии на собак <input type="checkbox" name="has_allergy"></p>
     <p>Наличие других собак <input type="checkbox" name="has_other_dogs"></p>
-    <p>Наличие времени на грумминг<input type="checkbox" name="has_time_for_grooming"></p>
-    <p>Тип жилья: <select name="home_type">
-        <option value="apartment">квартира</option>
-        <option value="house">дом</option>
+    <p>Наличие времени на груминг<input type="checkbox" name="has_time_for_grooming"></p>
+    <p>Тип жилья: <select id="home_type" name="home_type">
+        <option value="apartment">Квартира</option>
+        <option value="house">Дом</option>
     </select></p>
     <p><button>Отправить</button></p>
     </form>
+    <div id="pochacco"></div>
+    <div id="pompurin"></div>
 </body>
 </html>
