@@ -35,9 +35,10 @@ p{
     font-weight: 700;
     color: #553A2E;
     margin: 0;
+    padding-top: 5px;
 }
 
-p select{
+.form-select{
     display: block;
     margin-top: 8px;
     border: 1px solid #CFB9AE;
@@ -49,28 +50,37 @@ p select{
     padding-left: 15px;
 }
 
-#home_type{
+.form-select-home{
     display: inline-block !important;
     width: 60%;
     margin-left: 10px;
 }
 
-input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    position: relative;
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    cursor: pointer;
+input[type="checkbox"].form-check-input {
+    all: unset !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    position: relative !important;
+    display: inline-block !important;
+    width: 24px !important;
+    height: 24px !important;
+    vertical-align: middle !important;
+    margin-right: 10px !important;
+    cursor: pointer !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
 }
 
-input[type="checkbox"]::before {
+input[type="checkbox"].form-check-input::before {
     content: '';
     position: absolute;
     width: 20px;
     height: 20px;
-    margin-top: 8px;
+    margin-top: 2px;
     margin-left: 2px;
     border: 2px solid #553A2E;
     border-radius: 4px;
@@ -78,11 +88,10 @@ input[type="checkbox"]::before {
     transition: all 0.2s;
 }
 
-input[type="checkbox"]:checked::after {
+input[type="checkbox"].form-check-input:checked::after {
     content: url('/static/main/img/check.svg');
     transform: scale(0.6);
     position: absolute;
-    margin-top: 6px;
     margin-left: 4px;
 }
 
